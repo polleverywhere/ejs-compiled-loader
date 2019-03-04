@@ -1,5 +1,5 @@
-var ejs = require('ejs'),
-  uglify = require('uglify-js');
+var ejs = require('ejs');
+var UglifyJS = require("uglify-js");
 
 
 module.exports = function (source) {
@@ -10,7 +10,6 @@ module.exports = function (source) {
     webpack: this
   });
 
-  var ast = uglify.parser.parse(template.toString());
-
-  return 'module.exports = ' + uglify.uglify.gen_code(ast, {beautify: true});
+  var result = UglifyJS.minify(template.toString());
+  return 'module.exports = ' + result.code;
 };
